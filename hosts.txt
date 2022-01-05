@@ -1,0 +1,11 @@
+[PROD_SERVERS_WEB]
+PRODUCT-SERV	ansible_host=192.168.100.8	owner=Misha
+
+[STAGE_SERVERS_WEB]
+STAGE-SERV-1	ansible_host=50.18.25.106	owner=Mike
+STAGE-SERV-2	ansible_host=13.52.254.171	owner=Vasya
+
+[ALL_LINUX:children]
+PROD_SERVERS_WEB
+STAGE_SERVERS_WEB
+

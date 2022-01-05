@@ -1,0 +1,8 @@
+---
+- name: Playbook for FIRST PART of ANSIBLE TASK!
+  hosts: "{{ MYHOSTS }}"
+  become: yes
+
+  roles:
+     - role: apt_monit_java
+...

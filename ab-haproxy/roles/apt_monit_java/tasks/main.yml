@@ -1,0 +1,87 @@
+---
+# tasks file for apt_monit_java
+- block: #============Block for Debian OS=====================
+# Upgrade OS
+  - name: Update apt repo and cache
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=100
+
+  - name: Upgrade all apt packages
+    apt: upgrade=dist force_apt_get=yes
+
+# Install NGINX
+  - name: Install NGINX WebServer
+    apt: name=nginx update_cache=yes state=latest
+
+  - name: Start NGINX and Enable it on the every boot
+    service: name=nginx state=started enabled=yes
+
+  - name: Copy CONFIGS-file for NGINX to Servres
+    copy: src=default dest={{ destipath_nginx_conf }} mode=0555
+    notify: Restart NGINX
+
+# Install Haproxy
+  - name: Install HAPROXY-balancer on server
+    apt: name=haproxy state=latest
+
+  - name: Start HAPROXY-balancer and Enable it on the every boot
+    service: name=haproxy state=started enabled=yes
+
+  - name: Copy CONFIGS-file for HAPROXY to Servres
+    copy: src=haproxy.cfg dest={{ destipath_haproxy_conf }} mode=0555
+    notify: Restart HAPROXY
+
+# Install Monit
+  - name: Install Monit service
+    apt: name=monit update_cache=yes state=latest
+
+  - name: Start Monit and Enable it on the every boot
+    service: name=monit state=started enabled=yes
+
+  - name: Copy monit_cfg to Servres
+    copy: src=monit_cfg dest={{ destipath_monit_conf }} mode=0555
+    notify: Restart MONIT
+
+# Install JDK
+  - name: Install JDK
+    apt: name=default-jdk update_cache=yes state=latest
+
+  - name: Output version JDK
+    command: java -version
+    register: jdk_version
+
+  - debug:
+      var: jdk_version.stderr_lines
+
+# Install Curl
+  - name: Install Curl-Utility
+    apt: name=curl update_cache=yes state=latest
+
+# Install Tree-utility
+  - debug: 
+      msg: "Installation tree-utility"
+
+  - name: Installation tree utility
+    apt: name=tree state=latest
+
+# Install HTOP-utility
+  - debug: 
+      msg: "Installation HTOP-utility"
+
+  - name: Install HTOP utility
+    apt: name=htop state=latest
+
+# Install GIT-utility
+  - debug: 
+      msg: "Installation GIT-utility"
+
+  - name: Install GIT utility    
+    apt: name=git state=latest
+
+# Installation NET-TOOLS-utility
+  - debug:
+      msg: "Installation NET-TOOLS-utility"
+  
+  - name: Install NET-TOOLS utility
+    apt: name=net-tools state=latest
+
+  when: ansible_system == "Linux"

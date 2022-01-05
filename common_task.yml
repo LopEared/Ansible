@@ -1,0 +1,10 @@
+---
+- name: My super playbook for role apt_role_web
+  hosts: "{{ MYHOSTS }}"
+  become: yes
+
+  roles:
+     - role: apt_monit_java
+     - role: logstash_role     
+     - role: kibana_role
+...

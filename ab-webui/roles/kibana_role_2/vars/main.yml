@@ -1,0 +1,4 @@
+---
+# vars file for kibana_role
+destipath_nginx_server_conf: /etc/nginx/sites-available
+destipath_rsyslog_conf: /etc/rsyslog.d

@@ -1,0 +1,10 @@
+---
+# handlers file for apt_monit_java
+- name: Restart NGINX
+  service: name=nginx state=restarted
+
+- name: Restart HAPROXY
+  service: name=haproxy state=restarted
+
+- name: Restart MONIT
+  service: name=monit state=restarted

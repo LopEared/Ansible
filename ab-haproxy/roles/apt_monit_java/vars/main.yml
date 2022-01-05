@@ -1,0 +1,8 @@
+---
+# vars file for apt_monit_java
+# NGINX CONF
+destipath_nginx_conf: /etc/nginx/sites-available
+# HAPROXY CONF
+destipath_haproxy_conf: /etc/haproxy
+# MONIT CONF
+destipath_monit_conf: /etc/monit/conf-enabled
